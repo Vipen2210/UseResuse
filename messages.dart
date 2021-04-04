@@ -1,11 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dukan_app/widgets/sell/big_product_decoration.dart';
-import 'package:dukan_app/widgets/sell/product_decoration.dart';
+import 'package:dukan_app/widgets/chat/message_bubble.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class SellScreen extends StatelessWidget {
+class Messages extends StatefulWidget {
+  String userUid;
+  Messages(this.userUid);
 
+  @override
+  _MessagesState createState() => _MessagesState();
+}
+
+class _MessagesState extends State<Messages> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -16,12 +22,12 @@ class SellScreen extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-
         return StreamBuilder(
             stream: Firestore.instance
-                .collection("userProductsData")
+                .collection('SellerBuyerChat').document(widget.userUid).collection("chat")
                 .orderBy(
                   'createdAt',
+                  descending: true,
                 )
                 .snapshots(),
             builder: (context, chatSnapshot) {
@@ -33,15 +39,11 @@ class SellScreen extends StatelessWidget {
               final chatDocs = chatSnapshot.data.documents;
 
               return ListView.builder(
+                reverse: true,
                 itemCount: chatDocs.length,
-                itemBuilder: (ctx, index) => BigProductDecoration(
-                  chatDocs[index]['expectedPrice'],
-                  index,
-                  chatDocs,
-                  chatDocs[index]['image'],
-                  chatDocs[index]['name'],
-                  chatDocs[index]['phoneNo'],
-                  chatDocs[index]['userId'],
+                itemBuilder: (ctx, index) => MessageBubble(
+                  chatDocs[index]['text'],
+                  chatDocs[index]['userId'] == futureSnapshot.data.uid,
                 ),
               );
             });

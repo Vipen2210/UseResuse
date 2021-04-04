@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,7 +12,6 @@ class Sell extends StatefulWidget {
 }
 
 class _SellState extends State<Sell> {
-
   var _enteredName = '';
   var _enteredPhoneNo = '';
   var _enteredRollNo = '';
@@ -81,7 +79,7 @@ class _SellState extends State<Sell> {
                     borderRadius: BorderRadius.circular(25.0),
                     image: DecorationImage(
                         image: NetworkImage(
-                            'https://miro.medium.com/max/570/1*sDVFp8mWc5aTfKIQeR_Dzg.jpeg'),
+                            'https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41393-019-0246-8/MediaObjects/41393_2019_246_Fig1_HTML.png'),
                         fit: BoxFit.cover),
                   ),
                 ),
@@ -93,7 +91,7 @@ class _SellState extends State<Sell> {
                 child: TextField(
                     controller: myControllerName,
                     decoration: InputDecoration(
-                      labelText: "Your name",
+                      labelText: "Product name",
                       labelStyle:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       border: OutlineInputBorder(),
@@ -174,7 +172,9 @@ class _SellState extends State<Sell> {
               ),
               Expanded(
                   child: RaisedButton(
-                onPressed:()=>Navigator.of(context).pushNamed("/ImageCapture",arguments: _enteredName+_enteredPhoneNo),
+                onPressed: () => Navigator.of(context).pushNamed(
+                    "/ImageCapture",
+                    arguments: _enteredName + _enteredPhoneNo),
                 child: Icon(Icons.camera_alt),
               )),
               RaisedButton(

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dukan_app/widgets/sell/big_product_decoration.dart';
 import 'package:dukan_app/widgets/sell/product_decoration.dart';
+import 'package:dukan_app/widgets/sell/seller_decoration.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +48,7 @@ class _AllProductsState extends State<AllProducts> {
 
               return ListView.builder(
                 itemCount: chatDocs.length,
-                itemBuilder: (ctx, index) => ProductDecoration(
+                itemBuilder: (ctx, index) => SellerDecoration(
                   chatDocs[index]['expectedPrice'],
                   index,
                   chatDocs,
